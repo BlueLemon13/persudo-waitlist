@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Persudo — Join the Waitlist</title>
+  <meta name="description" content="Persudo turns your daily routines into unbreakable consistency — without punishing you for being human." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #dbeafe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -150px; right: -150px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #bfdbfe 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px; left: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #93c5fd 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid #93c5fd;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 1.75rem;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #2563eb;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #1e40af;
+      margin: 0 auto 2.25rem;
+      max-width: 440px;
+      line-height: 1.65;
+    }
+
+    .form-card {
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      color-scheme: light;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .field-wrap { margin-bottom: 10px; }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      background-color: #eff6ff !important;
+      border: 1px solid #bfdbfe !important;
+      border-radius: 8px;
+      color: #1e293b !important;
+      font-size: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.15s, background-color 0.15s;
+      color-scheme: light;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input::placeholder { color: #93afc8 !important; opacity: 1; }
+    input:focus { border-color: #2563eb !important; background-color: #dbeafe !important; }
+    input.error { border-color: #ef4444 !important; background-color: #fff5f5 !important; }
+    input.valid { border-color: #22c55e !important; }
+
+    .error-msg {
+      font-size: 11px;
+      color: #ef4444;
+      text-align: left;
+      margin: 3px 0 0 2px;
+      min-height: 14px;
+      display: block;
+    }
+
+    .cta-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #2563eb;
+      border: none;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.15s, transform 0.1s;
+      letter-spacing: 0.01em;
+    }
+
+    .cta-btn:hover { background-color: #1d4ed8; }
+    .cta-btn:active { transform: scale(0.99); }
+
+    .fine-print {
+      font-size: 12px;
+      color: #60a5c4;
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .fine-print span { display: flex; align-items: center; gap: 4px; }
+
+    .success-box {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .success-icon { font-size: 40px; margin-bottom: 12px; }
+    .success-title { font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+    .success-sub { font-size: 15px; color: #1e40af; line-height: 1.6; }
+
+    .counter-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .counter-item {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .counter-num { font-size: 22px; font-weight: 700; color: #2563eb; }
+    .counter-label { font-size: 11px; color: #60a5c4; margin-top: 3px; }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 34px; }
+      .form-row { grid-template-columns: 1fr; }
+      .counter-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Routine tracking, reimagined
+    </div>
+
+    <h1>Your routine, your pace.<br>Every single day.</h1>
+    <p class="subtitle">Persudo turns your daily routines into unbreakable consistency — without punishing you for being human. Be first in when we launch.</p>
+
+    <div class="form-card" id="form-card">
+      <div class="form-row">
+        <div>
+          <input type="text" placeholder="First name" id="fname" aria-label="First name" oninput="clearErr('fname')" autocomplete="off" />
+          <span class="error-msg" id="fname-err"></span>
+        </div>
+        <div>
+          <input type="text" placeholder="Last name" id="lname" aria-label="Last name" oninput="clearErr('lname')" autocomplete="off" />
+          <span class="error-msg" id="lname-err"></span>
+        </div>
+      </div>
+      <div class="field-wrap">
+        <input type="text" placeholder="your@gmail.com" id="femail" aria-label="Gmail address" oninput="clearErr('femail')" autocomplete="off" />
+        <span class="error-msg" id="femail-err"></span>
+      </div>
+      <button class="cta-btn" onclick="handleSubmit()">Get early access →</button>
+      <div class="fine-print">
+        <span>🔒 No card at signup</span>
+        <span>⭐ Cancel anytime</span>
+        <span>📈 Data preserved always</span>
+      </div>
+    </div>
+
+    <div class="success-box" id="success-box">
+      <div class="success-icon">✅</div>
+      <p class="success-title">You're on the list.</p>
+      <p class="success-sub">We'll reach out the second Persudo is ready.<br>Watch this space.</p>
+    </div>
+
+    <div class="counter-row">
+      <div class="counter-item">
+        <div class="counter-num" id="count">247</div>
+        <div class="counter-label">people waiting</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num">7</div>
+        <div class="counter-label">days free trial</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num">$7.99</div>
+        <div class="counter-label">per month after</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function clearErr(id) {
+      const el = document.getElementById(id);
+      const err = document.getElementById(id + '-err');
+      el.classList.remove('error');
+      if (err) err.textContent = '';
+    }
+    function setErr(id, msg) {
+      const el = document.getElementById(id);
+      const err = document.getElementById(id + '-err');
+      el.classList.add('error');
+      el.classList.remove('valid');
+      if (err) err.textContent = msg;
+    }
+    function setValid(id) {
+      const el = document.getElementById(id);
+      el.classList.remove('error');
+      el.classList.add('valid');
+      const err = document.getElementById(id + '-err');
+      if (err) err.textContent = '';
+    }
+    function handleSubmit() {
+      const fname = document.getElementById('fname').value.trim();
+      const lname = document.getElementById('lname').value.trim();
+      const email = document.getElementById('femail').value.trim().toLowerCase();
+      let valid = true;
+      if (!fname) { setErr('fname', 'First name is required'); valid = false; } else { setValid('fname'); }
+      if (!lname) { setErr('lname', 'Last name is required'); valid = false; } else { setValid('lname'); }
+      if (!email) { setErr('femail', 'Email is required'); valid = false; }
+      else if (!email.endsWith('@gmail.com')) { setErr('femail', 'Please use a Gmail address (e.g. you@gmail.com)'); valid = false; }
+      else if (!/^[a-zA-Z0-9._%+\-]+@gmail\.com$/.test(email)) { setErr('femail', "That Gmail address doesn't look right"); valid = false; }
+      else { setValid('femail'); }
+      if (!valid) return;
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('success-box').style.display = 'block';
+      document.getElementById('count').textContent = parseInt(document.getElementById('count').textContent) + 1;
+    }
+  </script>
+</body>
+</html>
