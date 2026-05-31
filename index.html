@@ -296,10 +296,25 @@
       else if (!/^[a-zA-Z0-9._%+\-]+@gmail\.com$/.test(email)) { setErr('femail', "That Gmail address doesn't look right"); valid = false; }
       else { setValid('femail'); }
       if (!valid) return;
-      document.getElementById('form-card').style.display = 'none';
-      document.getElementById('success-box').style.display = 'block';
-      document.getElementById('count').textContent = parseInt(document.getElementById('count').textContent) + 1;
+
+      const btn = document.querySelector('.cta-btn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      fetch('https://tally.so/r/VLD1Yj', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'Name': fname + ' ' + lname,
+          'Email address': email
+        })
+      }).finally(() => {
+        document.getElementById('form-card').style.display = 'none';
+        document.getElementById('success-box').style.display = 'block';
+        document.getElementById('count').textContent = parseInt(document.getElementById('count').textContent) + 1;
+      });
     }
   </script>
 </body>
 </html>
+
